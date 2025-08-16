@@ -1,40 +1,54 @@
 "use client";
+import "@mantine/core/styles.css";
 import {
   ColorSchemeScript,
   MantineProvider,
   AppShell,
+  AppShellHeader,
+  AppShellMain,
   Group,
+  Button,
+  Text,
 } from "@mantine/core";
+import { ReactNode } from "react";
 import Link from "next/link";
+import { signOut } from "./server-actions";
+import { usePathname } from "next/navigation";
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  const isLoginPage = pathname === "/admin/login";
+
   return (
-    <html lang="vi">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider defaultColorScheme="dark">
-          <AppShell padding="md">
-            {/* Navbar bên trái */}
-            <AppShell.Navbar>
-              <Group gap="sm" align="stretch">
-                <Link href="/admin">Tổng quan</Link>
-                <Link href="/admin/posts">Bài viết</Link>
-                <Link href="/admin/media">Media</Link>
-                <Link href="/admin/settings">Cài đặt</Link>
-              </Group>
-            </AppShell.Navbar>
-
-            {/* Nội dung chính */}
-            <AppShell.Main>{children}</AppShell.Main>
+    <MantineProvider defaultColorScheme="dark">
+      <html lang="vi">
+        <head>
+          <ColorSchemeScript />
+        </head>
+        <body>
+          <AppShell header={isLoginPage ? undefined : { height: 60 }}>
+            {!isLoginPage && (
+              <AppShellHeader>
+                <Group px="md" h="100%" justify="space-between">
+                  <Group gap="md">
+                    <Text fw={700}>Admin</Text>
+                    <Link href="/admin">Dashboard</Link>
+                    <Link href="/admin/posts">Bài viết</Link>
+                    <Link href="/admin/settings">Cài đặt</Link>
+                  </Group>
+                  <form action={signOut}>
+                    <Button type="submit" variant="light">
+                      Đăng xuất
+                    </Button>
+                  </form>
+                </Group>
+              </AppShellHeader>
+            )}
+            <AppShellMain>{children}</AppShellMain>
           </AppShell>
-        </MantineProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </MantineProvider>
   );
 }

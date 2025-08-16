@@ -58,13 +58,18 @@ export default function AdminLoginPage() {
         minHeight: "100dvh",
         display: "grid",
         placeItems: "center",
-        padding: "2rem",
       }}
     >
       <Paper radius="lg" p="xl" withBorder w={420}>
         <Title order={2} ta="center" mb="md">
-          Đăng nhập
+          Đăng nhập Admin
         </Title>
+
+        {error && (
+          <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
+            {error}
+          </Alert>
+        )}
 
         <form onSubmit={onSubmit}>
           <Stack>
@@ -88,11 +93,7 @@ export default function AdminLoginPage() {
             <Button type="submit" loading={submitting} fullWidth>
               Đăng nhập
             </Button>
-            {error && (
-              <Alert icon={<IconAlertCircle size={16} />} color="red" mb="md">
-                {error}
-              </Alert>
-            )}
+
             <Group justify="space-between">
               <Anchor size="sm" href="/">
                 ← Về trang chủ

@@ -1,40 +1,31 @@
 "use client";
-import {
-  ColorSchemeScript,
-  MantineProvider,
-  AppShell,
-  Group
-} from "@mantine/core";
-import Link from "next/link";
-
-export default function AdminLayout({
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { ThemeProvider } from "next-themes";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer";
+import "./globals.css";
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
+    <html lang="en">
+      {" "}
       <head>
-        <ColorSchemeScript />
-      </head>
+        {" "}
+        <ColorSchemeScript />{" "}
+      </head>{" "}
       <body>
-        <MantineProvider defaultColorScheme="dark">
-          <AppShell padding="md">
-            {/* Navbar bên trái */}
-            <AppShell.Navbar>
-              <Group gap="sm" align="stretch">
-                <Link href="/admin">Tổng quan</Link>
-                <Link href="/admin/posts">Bài viết</Link>
-                <Link href="/admin/media">Media</Link>
-                <Link href="/admin/settings">Cài đặt</Link>
-              </Group>
-            </AppShell.Navbar>
-
-            {/* Nội dung chính */}
-            <AppShell.Main>{children}</AppShell.Main>
-          </AppShell>
-        </MantineProvider>
-      </body>
+        {" "}
+        <ThemeProvider attribute="class" defaultTheme="light">
+          {" "}
+          <MantineProvider>
+            {" "}
+            <Header /> <main>{children}</main> <Footer />{" "}
+          </MantineProvider>{" "}
+        </ThemeProvider>{" "}
+      </body>{" "}
     </html>
   );
 }
