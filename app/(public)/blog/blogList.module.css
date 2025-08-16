@@ -1,0 +1,20 @@
+.blogList {
+  margin-top: 4.5rem;
+  color: #1565c0;
+  background: linear-gradient(90deg, #f5faff 60%, #e3f2fd );
+}
+
+/* .pageTitle {
+  font-weight: 800;
+  text-align: center;
+} */
+
+.listBlogRender {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 10rem;
+}

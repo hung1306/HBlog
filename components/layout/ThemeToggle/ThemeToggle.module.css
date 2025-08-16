@@ -1,0 +1,34 @@
+.toggle {
+  margin-left: 8px;
+  border-radius: 50%;
+  transition: 
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s;
+  box-shadow: 0 1px 4px rgba(1, 126, 250, 0.08);
+  outline: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.toggle:focus-visible {
+  box-shadow: 0 0 0 3px #90caf9;
+  background: #e3f2fd;
+}
+
+.toggle:hover {
+  background: #018cfd;
+  box-shadow: 0 2px 8px rgba(39, 131, 223, 0.15);
+  transform: scale(1.08);
+}
+
+.toggle:active {
+  background: #018cfd;
+  transform: scale(0.97);
+}
