@@ -1,4 +1,3 @@
-import { supabase } from "@/utils/supabaseClient";
 import { Container, Title, SimpleGrid } from "@mantine/core";
 import BlogCard from "@/components/BlogCard/BlogCard";
 import styles from "./blogList.module.css";

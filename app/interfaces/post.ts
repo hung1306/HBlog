@@ -7,6 +7,9 @@ export interface Post {
   title: string;
   slug: string;
   status: string;
+  category: string;
+  cover_image: string;
+  summary: string;
   created_at: string;
   updated_at: string;
   post_sections: PostSection[];

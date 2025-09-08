@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
+import { Post } from "../../../../interfaces/post";
 import {
   TextInput,
   Select,
@@ -33,25 +34,36 @@ type Section = {
 
 export default function EditPostPage() {
   const { id } = useParams<{ id: string }>();
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [sections, setSections] = useState<Section[]>([]);
   const [saving, setSaving] = useState(false);
   const [adding, setAdding] = useState(false);
   const [newSec, setNewSec] = useState({
-    title: "",
+    title: "...",
     section_type: "section",
     content: "",
   });
 
-  async function load() {
+  // async function load() {
+  //   const res = await fetch(`/api/admin/posts/${id}`);
+  //   const data = await res.json();
+  //   setPost(data.post);
+  //   setSections(data.sections);
+  // }
+  // useEffect(() => {
+  //   load();
+  // }, [id]);
+
+  const load = useCallback(async () => {
     const res = await fetch(`/api/admin/posts/${id}`);
     const data = await res.json();
     setPost(data.post);
     setSections(data.sections);
-  }
+  }, [id]);
+
   useEffect(() => {
     load();
-  }, [id]);
+  }, [load]);
 
   async function savePost() {
     setSaving(true);
@@ -84,7 +96,7 @@ export default function EditPostPage() {
   }
 
   async function updateSection(sec: Section, patch: Partial<Section>) {
-    const res = await fetch(`/api/admin/sections/${sec.id}`, {
+    const res = await fetch(`/api/admin/posts/sections/${sec.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...sec, ...patch }),
@@ -94,7 +106,7 @@ export default function EditPostPage() {
 
   async function deleteSection(sec: Section) {
     if (!confirm("Xoá phần này?")) return;
-    const res = await fetch(`/api/admin/sections/${sec.id}`, {
+    const res = await fetch(`/api/admin/posts/sections/${sec.id}`, {
       method: "DELETE",
     });
     if (res.ok) load();
@@ -105,10 +117,10 @@ export default function EditPostPage() {
   }
 
   async function move(sec: Section, dir: "up" | "down") {
-    const idx = sections.findIndex((s) => s.id === sec.id);
-    let newPos = dir === "up" ? sec.position - 1 : sec.position + 1;
+    // const idx = sections.findIndex((s) => s.id === sec.id);
+    const newPos = dir === "up" ? sec.position - 1 : sec.position + 1;
     if (newPos < 1 || newPos > sections.length) return;
-    const res = await fetch(`/api/admin/sections/${sec.id}/reorder`, {
+    const res = await fetch(`/api/admin/posts/sections/${sec.id}/reorder`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ new_position: newPos }),
@@ -172,7 +184,7 @@ export default function EditPostPage() {
         </Group>
       </Paper>
 
-      <Divider label="Các phần (sections)" labelPosition="center" />
+      <Divider label="Các phần" labelPosition="center" />
 
       <Stack>
         {sections.map((sec) => (
@@ -211,8 +223,9 @@ export default function EditPostPage() {
               value={sec.section_type}
               onChange={(v) => {
                 if (v) {
-                  updateSection(sec, { section_type: v as any });
-                  sec.section_type = v as any;
+                  const value = v as Section["section_type"];
+                  updateSection(sec, { section_type: value });
+                  sec.section_type = value;
                   setSections([...sections]);
                 }
               }}
@@ -265,7 +278,10 @@ export default function EditPostPage() {
           ]}
           value={newSec.section_type}
           onChange={(v) =>
-            setNewSec({ ...newSec, section_type: (v as any) || "section" })
+            setNewSec({
+              ...newSec,
+              section_type: (v as Section["section_type"]) || "section",
+            })
           }
         />
         <Textarea

@@ -12,9 +12,10 @@ import {
 } from "@mantine/core";
 import Link from "next/link";
 import { IconPencil, IconTrash } from "@tabler/icons-react";
+import { Post } from "@/app/interfaces/post";
 
 export default function AdminPostsList() {
-  const [rows, setRows] = useState<any[]>([]);
+  const [rows, setRows] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   async function load() {
@@ -50,7 +51,7 @@ export default function AdminPostsList() {
             <Table.Th>Tiêu đề</Table.Th>
             <Table.Th>Slug</Table.Th>
             <Table.Th>Trạng thái</Table.Th>
-            <Table.Th>#Sections</Table.Th>
+            <Table.Th>Sections</Table.Th>
             <Table.Th>Thao tác</Table.Th>
           </Table.Tr>
         </Table.Thead>

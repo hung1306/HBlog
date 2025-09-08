@@ -9,13 +9,13 @@ export async function GET() {
   const { data, error } = await supabase
     .from("posts")
     .select(
-      "id, title, slug, status, created_at, updated_at, post_sections(count)"
+      "id, title, slug, status, category, cover_image, summary, created_at, updated_at, post_sections(count)"
     )
     .order("created_at", { ascending: false });
 
   if (error)
     return NextResponse.json({ error: error.message }, { status: 500 });
-  // Chuyển count cho tiện
+
   const normalized = data.map((p: Post) => ({
     ...p,
     section_count:
@@ -38,6 +38,7 @@ export async function POST(req: Request) {
     category,
     cover_image,
     status = "draft",
+
     first_section_title,
     first_section_type = "intro",
     first_section_content,
