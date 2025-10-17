@@ -3,7 +3,6 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer";
-import "./globals.css";
 export default function RootLayout({
   children,
 }: {
