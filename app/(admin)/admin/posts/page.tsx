@@ -1,18 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Table,
-  Group,
-  Badge,
-  Title,
-  ActionIcon,
-  Tooltip,
-} from "@mantine/core";
 import Link from "next/link";
-import { IconPencil, IconTrash } from "@tabler/icons-react";
 import { Post } from "@/app/interfaces/post";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function AdminPostsList() {
   const [rows, setRows] = useState<Post[]>([]);
@@ -37,74 +28,92 @@ export default function AdminPostsList() {
   }
 
   return (
-    <>
-      <Group justify="space-between" mb="lg">
-        <Title order={2}>Bài viết</Title>
-        <Button component={Link} href="/admin/posts/new">
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-semibold">Bài viết</h2>
+        <Link
+          href="/admin/posts/new"
+          className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
+        >
           Tạo bài mới
-        </Button>
-      </Group>
+        </Link>
+      </div>
 
-      <Table striped highlightOnHover withTableBorder withColumnBorders>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Tiêu đề</Table.Th>
-            <Table.Th>Slug</Table.Th>
-            <Table.Th>Trạng thái</Table.Th>
-            <Table.Th>Sections</Table.Th>
-            <Table.Th>Thao tác</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {rows.map((r) => (
-            <Table.Tr key={r.id}>
-              <Table.Td>{r.title}</Table.Td>
-              <Table.Td>{r.slug}</Table.Td>
-              <Table.Td>
-                <Badge
-                  color={
-                    r.status === "published"
-                      ? "green"
-                      : r.status === "draft"
-                      ? "yellow"
-                      : "gray"
-                  }
-                >
-                  {r.status}
-                </Badge>
-              </Table.Td>
-              <Table.Td>{r.section_count}</Table.Td>
-              <Table.Td>
-                <Group gap="xs">
-                  <Tooltip label="Sửa">
-                    <ActionIcon
-                      component={Link}
+      {/* Table */}
+      <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+        <table className="w-full text-sm text-left border-collapse">
+          <thead className="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+            <tr>
+              <th className="px-4 py-3 border">Tiêu đề</th>
+              <th className="px-4 py-3 border">Slug</th>
+              <th className="px-4 py-3 border">Trạng thái</th>
+              <th className="px-4 py-3 border">Sections</th>
+              <th className="px-4 py-3 border text-center">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr
+                key={r.id}
+                className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <td className="px-4 py-3 border">{r.title}</td>
+                <td className="px-4 py-3 border">{r.slug}</td>
+                <td className="px-4 py-3 border">
+                  <span
+                    className={`px-2 py-1 text-xs font-medium rounded-md ${
+                      r.status === "published"
+                        ? "bg-green-100 text-green-700"
+                        : r.status === "draft"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {r.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 border text-center">
+                  {r.section_count}
+                </td>
+                <td className="px-4 py-3 border text-center">
+                  <div className="flex justify-center gap-3">
+                    <Link
                       href={`/admin/posts/${r.id}`}
-                      variant="light"
+                      className="text-blue-600 hover:text-blue-800"
+                      title="Sửa"
                     >
-                      <IconPencil size={16} />
-                    </ActionIcon>
-                  </Tooltip>
-                  <Tooltip label="Xoá">
-                    <ActionIcon
-                      color="red"
-                      variant="light"
+                      <FaEdit size={16} />
+                    </Link>
+                    <button
                       onClick={() => remove(r.id)}
+                      className="text-red-600 hover:text-red-800"
+                      title="Xoá"
                     >
-                      <IconTrash size={16} />
-                    </ActionIcon>
-                  </Tooltip>
-                </Group>
-              </Table.Td>
-            </Table.Tr>
-          ))}
-          {!rows.length && !loading && (
-            <Table.Tr>
-              <Table.Td colSpan={5}>Chưa có bài viết</Table.Td>
-            </Table.Tr>
-          )}
-        </Table.Tbody>
-      </Table>
-    </>
+                      <FaTrash size={15} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+
+            {!rows.length && !loading && (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-4 py-3 text-center text-gray-500 italic"
+                >
+                  Chưa có bài viết
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {loading && (
+        <p className="text-center text-gray-500 text-sm">Đang tải dữ liệu...</p>
+      )}
+    </div>
   );
 }

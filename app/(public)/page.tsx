@@ -1,162 +1,150 @@
+"use client";
+
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import {
-  Container,
-  Title,
-  Text,
-  Group,
-  Anchor,
-  Divider,
-  Image,
-  SimpleGrid,
-  Card,
-} from "@mantine/core";
-import {
-  IconBrandFacebook,
-  IconBrandGithub,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBuilding,
-  IconMail,
-  IconMapPin,
-  IconPhone,
-} from "@tabler/icons-react";
-import styles from "./page.module.css";
+  HiBuildingOffice,
+  HiEnvelope,
+  HiMapPin,
+  HiPhone,
+} from "react-icons/hi2";
 
 export default function HomePage() {
   return (
-    <Container size="lg" py="xl" className={styles.totalHomepage}>
-      {/* Phần giới thiệu */}
-      <Group className={styles.intro}>
-        <Title order={1} className={styles.introTitle}>
-          Hello👋, I am Nguyen Phuoc Dac Hung
-        </Title>
-        <Text size="lg" mt="md" className={styles.introText}>
+    <div className="max-w-6xl mx-auto px-6 py-16 space-y-20">
+      {/* ===== Giới thiệu ===== */}
+      <section className="text-center space-y-4">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+          Hello 👋, I am Nguyen Phuoc Dac Hung
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           A Fresher Software Engineer
-        </Text>
-        <Group mt="md" className={styles.socials}>
-          <Anchor
+        </p>
+        <div className="flex justify-center space-x-4 mt-4">
+          <a
             href="https://www.linkedin.com/in/hung-nguyen-phuoc-dac/"
             target="_blank"
+            className="hover:text-blue-600 transition-colors"
           >
-            <IconBrandLinkedin size={28} />
-          </Anchor>
-          <Anchor href="https://github.com/hung1306" target="_blank">
-            <IconBrandGithub size={28} />
-          </Anchor>
-          <Anchor
+            <FaLinkedin size={28} />
+          </a>
+          <a
+            href="https://github.com/hung1306"
+            target="_blank"
+            className="hover:text-gray-800 dark:hover:text-white transition-colors"
+          >
+            <FaGithub size={28} />
+          </a>
+          <a
             href="https://www.facebook.com/HungfromDakLak"
             target="_blank"
+            className="hover:text-blue-500 transition-colors"
           >
-            <IconBrandFacebook size={28} />
-          </Anchor>
-          <Anchor
+            <FaFacebook size={28} />
+          </a>
+          <a
             href="https://www.instagram.com/_nguyenphuochung/"
             target="_blank"
+            className="hover:text-pink-500 transition-colors"
           >
-            <IconBrandInstagram size={28} />
-          </Anchor>
-        </Group>
-      </Group>
+            <FaInstagram size={28} />
+          </a>
+        </div>
+      </section>
 
-      <Container my="xl">
-        <Divider
-          my="lg"
-          label="ABOUT ME"
-          labelPosition="center"
-          size="md"
-          className={styles.titleBox}
-        />
+      {/* ===== ABOUT ME ===== */}
+      <section>
+        <h2 className="text-center text-2xl font-semibold mb-8 relative">
+          <span className="border-b-2 border-gray-300 pb-1">ABOUT ME</span>
+        </h2>
 
-        <SimpleGrid
-          cols={{ base: 1, md: 3 }}
-          spacing="xl"
-          className={styles.gridLayout}
-        >
-          {/* Cột 1: Avatar */}
-          <Card className={styles.avatarBox}>
-            <Image
+        <div className="grid md:grid-cols-3 gap-10">
+          {/* Avatar */}
+          <div className="flex justify-center">
+            <img
               src="/avatar1.jpg"
               alt="My Avatar"
-              radius="xl"
-              fit="cover"
-              className={styles.avatarImg}
+              className="rounded-3xl w-64 h-64 object-cover shadow-md"
             />
-          </Card>
+          </div>
 
-          {/* Cột 2: Summary */}
-          <Card className={styles.summaryBox}>
-            <Text size="sm" className={styles.summaryText}>
+          {/* Summary */}
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm">
+            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
               As a recent graduate in Computer Science with a solid foundation
               in web and system development, I am eager to secure an opportunity
               as a Software Developer. With a strong drive to learn and quick
               adaptability, I aspire to apply my knowledge in building and
               maintaining software, while also enhancing my expertise under
               seasoned guidance and contributing to collective achievements.
-            </Text>
-          </Card>
+            </p>
+          </div>
 
-          {/* Cột 3: Contact */}
-          <Card className={styles.contactBox}>
-            <Title order={4} className={styles.contactTitle}>
-              Get in touch
-            </Title>
-            <Group className={styles.contactItem}>
-              <IconMapPin size={18} />
-              <Text>Buon Ma Thuot, Dak Lak</Text>
-            </Group>
-            <Group className={styles.contactItem}>
-              <IconBuilding size={18} />
-              <Text>Ho Chi Minh City</Text>
-            </Group>
-            <Group className={styles.contactItem}>
-              <IconMail size={18} />
-              <Anchor
+          {/* Contact */}
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm space-y-3">
+            <h4 className="text-lg font-semibold">Get in touch</h4>
+
+            <div className="flex items-center space-x-2">
+              <HiMapPin size={18} />
+              <p>Buon Ma Thuot, Dak Lak</p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <HiBuildingOffice size={18} />
+              <p>Ho Chi Minh City</p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <HiEnvelope size={18} />
+              <a
                 href="mailto:hungnguyenphuocdac@gmail.com"
                 target="_blank"
+                className="text-blue-600 hover:underline"
               >
                 hungnguyenphuocdac@gmail.com
-              </Anchor>
-            </Group>
-            <Group className={styles.contactItem}>
-              <IconPhone size={18} />
-              <Text>0367972391</Text>
-            </Group>
-            <Group className={styles.contactItem}>
-              <IconBrandLinkedin size={18} />
-              <Anchor
+              </a>
+            </div>
+            <div className="flex items-center space-x-2">
+              <HiPhone size={18} />
+              <p>0367972391</p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaLinkedin size={18} />
+              <a
                 href="https://www.linkedin.com/in/hung-nguyen-phuoc-dac/"
                 target="_blank"
+                className="text-blue-600 hover:underline"
               >
                 linkedin.com/in/hungng
-              </Anchor>
-            </Group>
-            <Group className={styles.contactItem}>
-              <IconBrandGithub size={18} />
-              <Anchor href="https://github.com/hung1306" target="_blank">
+              </a>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaGithub size={18} />
+              <a
+                href="https://github.com/hung1306"
+                target="_blank"
+                className="text-blue-600 hover:underline"
+              >
                 github.com/hung1306
-              </Anchor>
-            </Group>
-          </Card>
-        </SimpleGrid>
-      </Container>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <Container my="xl">
-        <Divider
-          my="lg"
-          label="TECHNICAL SKILLS"
-          labelPosition="center"
-          size="md"
-          className={styles.titleBox}
-        />
-        <SimpleGrid
-          cols={{ base: 1, md: 3 }}
-          spacing="xl"
-          className={styles.gridLayout}
-        >
+      {/* ===== TECHNICAL SKILLS ===== */}
+      <section>
+        <h2 className="text-center text-2xl font-semibold mb-8 relative">
+          <span className="border-b-2 border-gray-300 pb-1">
+            TECHNICAL SKILLS
+          </span>
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-10">
           {/* Cột 1 */}
-          <Card className={styles.skillsColumn}>
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Programming Languages</h3>
-              <ul className={styles.softSkillList}>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm space-y-6">
+            <div>
+              <h3 className="font-semibold text-lg mb-2">
+                Programming Languages
+              </h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>HTML, CSS</li>
                 <li>JavaScript</li>
                 <li>TypeScript</li>
@@ -165,22 +153,22 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Frameworks</h3>
-              <ul className={styles.softSkillList}>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">Frameworks</h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>ReactJS</li>
                 <li>NextJS</li>
                 <li>NodeJS</li>
                 <li>ASP.NET</li>
               </ul>
             </div>
-          </Card>
+          </div>
 
           {/* Cột 2 */}
-          <Card className={styles.skillsColumn}>
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Database</h3>
-              <ul className={styles.softSkillList}>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm space-y-6">
+            <div>
+              <h3 className="font-semibold text-lg mb-2">Database</h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>Design Database</li>
                 <li>PostgreSQL</li>
                 <li>MySQL</li>
@@ -189,71 +177,50 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Others</h3>
-              <ul className={styles.softSkillList}>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">Others</h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>Git</li>
                 <li>Figma</li>
-                <li>Agile/Scum</li>
+                <li>Agile/Scrum</li>
                 <li>Object-Oriented Programming (OOP)</li>
                 <li>RESTful API</li>
               </ul>
             </div>
-          </Card>
+          </div>
 
           {/* Cột 3 */}
-          <Card className={styles.skillsColumn}>
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Foreign Language</h3>
-              <ul className={styles.softSkillList}>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm space-y-6">
+            <div>
+              <h3 className="font-semibold text-lg mb-2">Foreign Language</h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>TOEIC 625</li>
                 <li>Good understanding of English documents</li>
                 <li>Basic communication skills</li>
               </ul>
             </div>
 
-            <div className={styles.skillGroup}>
-              <h3 className={styles.skillTitle}>Soft Skills</h3>
-              <ul className={styles.softSkillList}>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">Soft Skills</h3>
+              <ul className="list-disc list-inside text-sm space-y-1">
                 <li>Share ideas clearly and listen actively</li>
                 <li>Collaborate effectively with team members</li>
                 <li>Plan and manage time to meet deadlines</li>
                 <li>Ready to learn new things and handle changes</li>
               </ul>
             </div>
-          </Card>
-        </SimpleGrid>
-      </Container>
+          </div>
+        </div>
+      </section>
 
-      <Container my="xl">
-        <Divider
-          my="lg"
-          label="PROJECTS"
-          labelPosition="center"
-          size="md"
-          className={styles.titleBox}
-        />
-      </Container>
-
-      <Container my="xl">
-        <Divider
-          my="lg"
-          label="EDUCATION"
-          labelPosition="center"
-          size="md"
-          className={styles.titleBox}
-        />
-      </Container>
-
-      <Container my="xl">
-        <Divider
-          my="lg"
-          label="EXPERIENCES"
-          labelPosition="center"
-          size="md"
-          className={styles.titleBox}
-        />
-      </Container>
-    </Container>
+      {/* ===== PROJECTS / EDUCATION / EXPERIENCE ===== */}
+      {["PROJECTS", "EDUCATION", "EXPERIENCES"].map((title) => (
+        <section key={title}>
+          <h2 className="text-center text-2xl font-semibold mb-8 relative">
+            <span className="border-b-2 border-gray-300 pb-1">{title}</span>
+          </h2>
+        </section>
+      ))}
+    </div>
   );
 }

@@ -1,6 +1,6 @@
-import { Container, Title, SimpleGrid } from "@mantine/core";
 import BlogCard from "@/components/BlogCard/BlogCard";
 import styles from "./blogList.module.css";
+import { supabase } from '@/utils/supabaseClient';
 
 export const revalidate = 60;
 
@@ -12,24 +12,28 @@ export default async function BlogPage() {
 
   if (error) {
     console.error(error);
-    return <Container>Lỗi tải dữ liệu</Container>;
+    return (
+      <div className="max-w-6xl mx-auto px-6 py-12 text-center text-red-600">
+        Lỗi tải dữ liệu
+      </div>
+    );
   }
 
   return (
-    <Container size="lg" py="xl" className={styles.blogList}>
-      {/* <Title order={1} mb="xl" className={styles.pageTitle}>
+    <div className={`max-w-6xl mx-auto px-6 py-12 ${styles.blogList}`}>
+      {/* Tiêu đề trang */}
+      {/* <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
         Blog
-      </Title> */}
+      </h1> */}
 
-      <SimpleGrid
-        cols={{ base: 1, sm: 2, md: 3 }}
-        spacing="lg"
-        className={styles.listBlogRender}
+      {/* Grid hiển thị danh sách bài viết */}
+      <div
+        className={`grid gap-8 ${styles.listBlogRender} grid-cols-1 sm:grid-cols-2 md:grid-cols-3`}
       >
         {posts?.map((post) => (
           <BlogCard key={post.id} post={post} />
         ))}
-      </SimpleGrid>
-    </Container>
+      </div>
+    </div>
   );
 }

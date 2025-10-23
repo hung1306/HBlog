@@ -1,21 +1,27 @@
 "use client";
-import { ActionIcon, useMantineColorScheme } from "@mantine/core";
-import { Sun, Moon } from "tabler-icons-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+import { FiSun, FiMoon } from "react-icons/fi";
 import styles from "./ThemeToggle.module.css";
 
 export default function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === "dark";
+  const { theme, setTheme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Khi component mount xong mới render để tránh lỗi "hydration mismatch"
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  const isDark = currentTheme === "dark";
 
   return (
-    <ActionIcon
-      className={styles.toggle}
-      variant="outline"
-      color={dark ? "yellow" : "blue"}
-      onClick={() => toggleColorScheme()}
-      title="Toggle color scheme"
+    <button
+      className={`${styles.toggle} ${isDark ? styles.dark : styles.light}`}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label="Toggle theme"
     >
-      {dark ? <Sun size={18} /> : <Moon size={18} />}
-    </ActionIcon>
+      {isDark ? <FiSun size={18} /> : <FiMoon size={18} />}
+    </button>
   );
 }

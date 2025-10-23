@@ -1,33 +1,33 @@
 "use client";
 import styles from "./Header.module.css";
 import Link from "next/link";
-import { Group, Container } from "@mantine/core";
-import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { useState } from "react";
-import { IconMenu2 } from "@tabler/icons-react";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className={styles.header}>
-      <Container>
-        <Group className={styles.group}>
-          {/* Logo */}
+      <div className={styles.container}>
+        <div className={styles.group}>
           <Link href="/" className={styles.logo}>
             Hblog
           </Link>
 
-          {/* Hamburger icon cho mobile */}
-          <div
-            className={styles.hamburger}
+          {/* Hamburger icon thuần CSS */}
+          <button
+            className={`${styles.hamburger} ${menuOpen ? styles.active : ""}`}
             onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
           >
-            <IconMenu2 size={20} stroke={2} color="#1976d2" />
-          </div>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
 
           {/* Menu */}
-          <Group className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
+          <nav className={`${styles.nav} ${menuOpen ? styles.open : ""}`}>
             <Link href="/" onClick={() => setMenuOpen(false)}>
               Home
             </Link>
@@ -41,9 +41,9 @@ export default function Header() {
               Contact
             </Link>
             <ThemeToggle />
-          </Group>
-        </Group>
-      </Container>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }
